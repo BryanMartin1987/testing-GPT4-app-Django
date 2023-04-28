@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Query</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button[type="submit"] {
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #555;
+        }
+
+        h2 {
+            margin-top: 10px;
+            color: #333;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 30px;
+            padding: 0;
+
+        }
+        
+
+        li {
+            padding: 10px;
+            margin-bottom: 5px;
+            background-color: #fff;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Write Query</h1>
+    <form method="POST" action="{% url 'testapp:index' %}">
+        {% csrf_token %}
+        <input type="text" name="text">
+        <button type="submit">Send</button>
+    </form>
+    {% if response %}
+        {% for values in response %}
+            {% if forloop.counter == 1 %}
+                <h2>Steps</h2>
+            {% else %}
+                <h2>Rationales</h2>
+            {% endif %}
+            <ul>
+                {% for item in values %}
+                    {% if item != "" %}
+                        <li>{{ item }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
