@@ -1,6 +1,5 @@
 from django.shortcuts import render
 import chatgpt_integration as chatgpt
-import json
 
 def index(request):
     if request.POST:

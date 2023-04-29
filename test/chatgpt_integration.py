@@ -6,21 +6,14 @@ with open('openai_key.json') as f:
 
 def get_how_to(query):
     prompt = f"Provide up to five concise steps with rationales for the following how-to query:\n\n{query}\n\nSteps:"
-
-    response = openai.Completion.create(
-        engine="text-davinci-002",
-        prompt=prompt,
+    message = [{"role": "user", "content": prompt}]
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages = message,
+        temperature=0.2,
         max_tokens=1000,
-        n=1,
-        stop=None,
-        temperature=0.5,
+        frequency_penalty=0.0
     )
-    
-    req = response['choices'][0]['text'].split('Rationales:')
-    steps = req[0].split('\n')
-    if len(req) > 1:
-        rationales = req[1].split('\n')
-    else:
-        rationales = []
-        
-    return steps, rationales
+    steps = response['choices'][0]["message"]["content"].split('\n\n')
+
+    return steps

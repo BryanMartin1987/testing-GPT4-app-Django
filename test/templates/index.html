@@ -69,20 +69,16 @@
         <button type="submit">Send</button>
     </form>
     {% if response %}
-        {% for values in response %}
-            {% if forloop.counter == 1 %}
-                <h2>Steps</h2>
-            {% else %}
-                <h2>Rationales</h2>
-            {% endif %}
-            <ul>
-                {% for item in values %}
-                    {% if item != "" %}
-                        <li>{{ item }}</li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
+    <h2>Response</h2>
+    <ul>
+        {% for item in response %}
+            <li>
+                {{ item }}
+            </li>
         {% endfor %}
+    </ul>
+
     {% endif %}
+    
 </body>
 </html>
